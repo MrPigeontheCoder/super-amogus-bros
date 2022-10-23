@@ -6,6 +6,9 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         Player1.setVelocity(Player1.vx, 75)
     }
 })
+function create_enemy (name: string, enemy_name: Sprite, Sprite_1: Image, Sprite_2: Image, posX: number, posY: number) {
+	
+}
 // This sets up the game and stuff
 let Player1: Sprite = null
 console.log("game started")
