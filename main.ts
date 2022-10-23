@@ -3,12 +3,13 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         music.playSoundEffect(music.createSoundEffect(WaveShape.Square, 400, 600, 255, 0, 250, SoundExpressionEffect.None, InterpolationCurve.Linear), SoundExpressionPlayMode.InBackground)
         Player1.setVelocity(Player1.vx, -100)
         pause(500)
-        Player1.setVelocity(Player1.vx, 50)
+        Player1.setVelocity(Player1.vx, 75)
     }
 })
+// This sets up the game and stuff
 let Player1: Sprite = null
 // This creates the player sprite and makes it move and makes the camera follow it
-Player1 = sprites.create(assets.image`Player1`, SpriteKind.Player)
+Player1 = sprites.create(assets.image`Player1Right`, SpriteKind.Player)
 controller.moveSprite(Player1, 50, 0)
 scene.cameraFollowSprite(Player1)
 let lives = 5
@@ -36,6 +37,13 @@ forever(function () {
         Moving_Enemy.setImage(assets.image`enemy1right`)
     } else if (Moving_Enemy.vx == -50) {
         Moving_Enemy.setImage(assets.image`enemy1left`)
+    }
+})
+forever(function () {
+    if (Player1.vx >= 50) {
+        Player1.setImage(assets.image`Player1Right`)
+    } else if (Player1.vx <= -50) {
+        Player1.setImage(assets.image`Player1Left`)
     }
 })
 forever(function () {
