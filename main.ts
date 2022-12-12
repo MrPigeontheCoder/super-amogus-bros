@@ -1,6 +1,6 @@
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Player1.isHittingTile(CollisionDirection.Bottom)) {
-        music.playSoundEffect(music.createSoundEffect(WaveShape.Square, 400, 600, 255, 0, 250, SoundExpressionEffect.None, InterpolationCurve.Linear), SoundExpressionPlayMode.InBackground)
+        music.playSoundEffect(music.createSoundEffect(WaveShape.Sawtooth, 400, 661, 255, 0, 250, SoundExpressionEffect.None, InterpolationCurve.Linear), SoundExpressionPlayMode.InBackground)
         Player1.setVelocity(Player1.vx, -100)
         pause(500)
         Player1.setVelocity(Player1.vx, 75)
@@ -55,6 +55,11 @@ forever(function () {
     }
 })
 forever(function () {
+    if (0 == 0) {
+    	
+    }
+})
+forever(function () {
     if (controller.B.isPressed()) {
         controller.moveSprite(Player1, 75, 0)
     } else {
@@ -63,6 +68,6 @@ forever(function () {
 })
 forever(function () {
     if (info.life() == 0) {
-        game.over(false, effects.dissolve)
+        game.over(false, effects.melt)
     }
 })
