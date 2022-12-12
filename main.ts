@@ -6,9 +6,10 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         Player1.setVelocity(Player1.vx, 75)
     }
 })
-function create_enemy (name: string, enemy_name: Sprite, Sprite_1: Image, Sprite_2: Image, posX: number, posY: number) {
-	
-}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    info.changeLifeBy(-1)
+    pause(1000)
+})
 // This sets up the game and stuff
 let Player1: Sprite = null
 console.log("game started")
@@ -29,13 +30,10 @@ console.log("player placed on position")
 // 
 game.splash("SUPER AMOGUS BROS.", "Copyright Amogus Co. 2022")
 console.log("name splashed")
-// This shows the lives
-game.showLongText("" + info.life() + " x Lives", DialogLayout.Full)
-console.log("lives shown")
-let Moving_Enemy = sprites.create(assets.image`enemy1left`, SpriteKind.Enemy)
-tiles.placeOnTile(Moving_Enemy, tiles.getTileLocation(3, 12))
-Moving_Enemy.setVelocity(50, 0)
-Moving_Enemy.setBounceOnWall(true)
+let Moving_Enemy_1 = sprites.create(assets.image`enemy1left`, SpriteKind.Enemy)
+tiles.placeOnTile(Moving_Enemy_1, tiles.getTileLocation(3, 12))
+Moving_Enemy_1.setVelocity(50, 0)
+Moving_Enemy_1.setBounceOnWall(true)
 console.log("enemy set")
 forever(function () {
     if (!(controller.A.isPressed())) {
@@ -43,10 +41,10 @@ forever(function () {
     }
 })
 forever(function () {
-    if (Moving_Enemy.vx == 50) {
-        Moving_Enemy.setImage(assets.image`enemy1right`)
-    } else if (Moving_Enemy.vx == -50) {
-        Moving_Enemy.setImage(assets.image`enemy1left`)
+    if (Moving_Enemy_1.vx == 50) {
+        Moving_Enemy_1.setImage(assets.image`enemy1right`)
+    } else if (Moving_Enemy_1.vx == -50) {
+        Moving_Enemy_1.setImage(assets.image`enemy1left`)
     }
 })
 forever(function () {
@@ -61,5 +59,10 @@ forever(function () {
         controller.moveSprite(Player1, 75, 0)
     } else {
         controller.moveSprite(Player1, 50, 0)
+    }
+})
+forever(function () {
+    if (info.life() == 0) {
+        game.over(false, effects.dissolve)
     }
 })
