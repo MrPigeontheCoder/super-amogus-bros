@@ -6,8 +6,13 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
         Player1.setVelocity(Player1.vx, 75)
     }
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`Strange Block`, function (sprite, location) {
+    tiles.setWallAt(location, false)
+    tiles.setTileAt(location, assets.tile`transparency16`)
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
+    music.playSoundEffect(music.createSoundEffect(WaveShape.Noise, 1370, 533, 209, 134, 651, SoundExpressionEffect.Vibrato, InterpolationCurve.Linear), SoundExpressionPlayMode.InBackground)
     pause(1000)
 })
 // This sets up the game and stuff

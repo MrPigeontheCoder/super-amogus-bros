@@ -14,6 +14,11 @@ def on_a_pressed():
         Player1.set_velocity(Player1.vx, 75)
 controller.A.on_event(ControllerButtonEvent.PRESSED, on_a_pressed)
 
+def on_on_overlap(sprite, otherSprite):
+    info.change_life_by(-1)
+    pause(1000)
+sprites.on_overlap(SpriteKind.player, SpriteKind.enemy, on_on_overlap)
+
 # This sets up the game and stuff
 Player1: Sprite = None
 print("game started")
@@ -40,12 +45,12 @@ print("player placed on position")
 # 
 game.splash("SUPER AMOGUS BROS.", "Copyright Amogus Co. 2022")
 print("name splashed")
-Moving_Enemy = sprites.create(assets.image("""
+Moving_Enemy_1 = sprites.create(assets.image("""
     enemy1left
 """), SpriteKind.enemy)
-tiles.place_on_tile(Moving_Enemy, tiles.get_tile_location(3, 12))
-Moving_Enemy.set_velocity(50, 0)
-Moving_Enemy.set_bounce_on_wall(True)
+tiles.place_on_tile(Moving_Enemy_1, tiles.get_tile_location(3, 12))
+Moving_Enemy_1.set_velocity(50, 0)
+Moving_Enemy_1.set_bounce_on_wall(True)
 print("enemy set")
 
 def on_forever():
@@ -54,12 +59,12 @@ def on_forever():
 forever(on_forever)
 
 def on_forever2():
-    if Moving_Enemy.vx == 50:
-        Moving_Enemy.set_image(assets.image("""
+    if Moving_Enemy_1.vx == 50:
+        Moving_Enemy_1.set_image(assets.image("""
             enemy1right
         """))
-    elif Moving_Enemy.vx == -50:
-        Moving_Enemy.set_image(assets.image("""
+    elif Moving_Enemy_1.vx == -50:
+        Moving_Enemy_1.set_image(assets.image("""
             enemy1left
         """))
 forever(on_forever2)
@@ -81,3 +86,8 @@ def on_forever4():
     else:
         controller.move_sprite(Player1, 50, 0)
 forever(on_forever4)
+
+def on_forever5():
+    if info.life() == 0:
+        game.over(False, effects.dissolve)
+forever(on_forever5)
